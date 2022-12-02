@@ -1,6 +1,6 @@
 import './App.css';
 import Start from './components/Start';
-import { Button } from '@mui/material/';
+import { Button, Typography } from '@mui/material/';
 
 function App() {
   return (
