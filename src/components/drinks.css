@@ -2,16 +2,23 @@
 .grid-item{
     padding: 10px;
     color:white;
-    height: 30vh;
 }
 
 .form{
-    padding: 10% 0px 10% 0px;
+    padding: 5% 0px 5% 0px;
 }
 .formi{
     width: 80%;
 }
 
+.menu-item{
+    background-color: white;
+    color: green;
+}
+
+.formText .p{
+    padding: 5px;
+}
 
 .grid-item-2{
     border-radius: 15px;
@@ -20,7 +27,6 @@
     background-color: black;
     padding: 10px 10px 10px 10px;
     overflow: scroll;
-    height: 60vh;
 }
 
 .hide{
@@ -36,6 +42,38 @@
     color: white;
     padding: 10px;
     border-radius: 5px;
-    position: sticky;  top: 0;
-    z-index: 10;
+
+}
+
+@media only screen and (max-width: 800px){
+    .hideOnMobile{
+        display: none;
+    }
+    .grid-item{
+        height: 30vh;
+    }
+    .grid-item-2{
+        height: 70vh;
+    }
+}
+
+@media only screen and (min-width: 801px){
+    .hideOnDesktop{
+        display: none;
+    }
+    .grid-item{
+        height: 100vh;
+    }
+    .grid-item-2{
+        height: 100vh;
+    }
+}
+
+@media only screen and (max-width:900px) and (min-width: 801px){
+    .grid-item{
+        height: 40vh;
+    }
+    .grid-item-2{
+        height: 60vh;
+    }
 }
