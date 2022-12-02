@@ -6,12 +6,21 @@ import './drinks.css';
 
 function Drinks(props){
     let [selected, setSelected] = useState("Ordinary Drink");
+    let [viewing, setViewing] = useState("")
     let [drinks, setDrinks] = useState([]);
 
     const requestNew = async(end) =>{
         const result = await fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+end);
         result.json().then(data => {
             setDrinks(data.drinks);
+        });
+    };
+
+    const requestDrink = async(end) => {
+        const result = await fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+end);
+        result.json().then(data => {
+            console.log(data.drinks[0]);
+            setViewing(data.drinks[0]);
         });
     };
 
@@ -55,7 +64,7 @@ function Drinks(props){
                     <Typography variant="h6" className="taa">Suggestions:</Typography>
                     <ImageList cols={4}>
                         {drinks.map((drink)=>(
-                            <ImageListItem key={drink.strDrink}>
+                            <ImageListItem key={drink.strDrink} onClick={()=>{requestDrink(drink.strDrink)}}>
                                 <img src={`${drink.strDrinkThumb}`} className="drinkImg" alt={drink.strDrink}/>
                                 <ImageListItemBar 
                                     title={drink.strDrink}
@@ -73,7 +82,7 @@ function Drinks(props){
                     <Typography variant="h6" className="taa">Suggestions:</Typography>
                     <ImageList cols={2}>
                         {drinks.map((drink)=>(
-                            <ImageListItem key={drink.strDrink}>
+                            <ImageListItem key={drink.strDrink} onClick={()=>{requestDrink(drink.strDrink)}}>
                                 <img src={`${drink.strDrinkThumb}`} className="drinkImg" alt={drink.strDrink}/>
                                 <ImageListItemBar 
                                     title={drink.strDrink}
