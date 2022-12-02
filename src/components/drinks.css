@@ -1,8 +1,41 @@
 
 .grid-item{
-    background-color: blueviolet;
+    padding: 10px;
+    color:white;
+    height: 30vh;
+}
+
+.form{
+    padding: 10% 0px 10% 0px;
+}
+.formi{
+    width: 80%;
+}
+
+
+.grid-item-2{
     border-radius: 15px;
     border-style: solid;
     border-color: black;
+    background-color: black;
+    padding: 10px 10px 10px 10px;
+    overflow: scroll;
+    height: 60vh;
+}
+
+.hide{
+    display: none;
+}
+
+.drinkImg{
+    border-radius: 5px;
+}
+
+.taa{
+    background-color: black;
+    color: white;
     padding: 10px;
+    border-radius: 5px;
+    position: sticky;  top: 0;
+    z-index: 10;
 }
