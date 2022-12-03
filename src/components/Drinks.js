@@ -34,14 +34,16 @@ function Drinks(props){
                 }
             }
 
+            for (let i = 0; i < measures.length; i++){
+                ingredients[i] = ingredients[i] + " " + measures[i];
+            }
+
             setViewing({
                 drink: data.drinks[0].strDrink, 
                 img: data.drinks[0].strDrinkThumb,
                 ingredients: ingredients,
-                measures: measures,
                 instructions: data.drinks[0].strInstructions
             });
-            console.log(viewing);
         });
     };
 
@@ -104,7 +106,7 @@ function Drinks(props){
                     <Typography variant="h6" className="taa">Suggestions:</Typography>
                     <ImageList cols={2}>
                         {drinks.map((drink)=>(
-                            <ImageListItem key={drink.strDrink} onClick={()=>{requestDrink(drink.strDrink)}}>
+                            <ImageListItem key={drink.strDrink} onClick={()=>{requestDrink(drink.strDrink);}}>
                                 <img src={`${drink.strDrinkThumb}`} className="drinkImg" alt={drink.strDrink}/>
                                 <ImageListItemBar 
                                     title={drink.strDrink}
