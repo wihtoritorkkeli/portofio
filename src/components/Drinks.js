@@ -6,9 +6,10 @@ import './drinks.css';
 
 function Drinks(props){
     let [selected, setSelected] = useState("Ordinary Drink");
-    let [viewing, setViewing] = useState("")
+    let [viewing, setViewing] = useState({})
     let [drinks, setDrinks] = useState([]);
 
+    //This async function handles requesting new drink categories to show on the page:
     const requestNew = async(end) =>{
         const result = await fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+end);
         result.json().then(data => {
@@ -16,14 +17,35 @@ function Drinks(props){
         });
     };
 
+    //this async function handles requesting drink details from a drink chosen by the user...
     const requestDrink = async(end) => {
         const result = await fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s="+end);
         result.json().then(data => {
-            console.log(data.drinks[0]);
-            setViewing(data.drinks[0]);
+            let ingredients = [];
+            let measures = [];
+
+            //this iterates through the requested "Drink" -object and returns all valid ingredients and measurements...
+            for (const [key, value] of Object.entries(data.drinks[0])){
+                if (key.includes("strIngredient") && value !== null){
+                    ingredients.push(value);    
+                }
+                else if (key.includes("strMeasure") && value != null){
+                    measures.push(value);
+                }
+            }
+
+            setViewing({
+                drink: data.drinks[0].strDrink, 
+                img: data.drinks[0].strDrinkThumb,
+                ingredients: ingredients,
+                measures: measures,
+                instructions: data.drinks[0].strInstructions
+            });
+            console.log(viewing);
         });
     };
 
+    //this handles the first initail drink category request so that the page wouldnt start empty...
     useEffect(()=>{requestNew(selected);},[selected]);
 
     const handleChange = (category) => {
