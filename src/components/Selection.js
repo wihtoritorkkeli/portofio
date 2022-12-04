@@ -9,7 +9,6 @@ function Selection(props){
     const requestNew = async(end, e) =>{
         const result = await fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+end);
         result.json().then(data => {
-            console.log("tasa");
             props.listDrinks(data.drinks);
             props.selectDrink();
         });
@@ -20,8 +19,8 @@ function Selection(props){
     };
 
     return(
-        <Container maxWidth="false" className="textIn">
-                <Typography variant="h6" className="formText h6">Choose your drink category here:</Typography>
+        <Container className="textIn selection">
+                <Typography variant="h5" className="formText h6">Choose your drink category here:</Typography>
                 <form className="form">
                     <FormControl variant="outlined" className="formi">
                         <InputLabel id="select-drink-category">Drink category</InputLabel>

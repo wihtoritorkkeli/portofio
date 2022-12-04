@@ -65,7 +65,7 @@ function Drinks(props){
             <div className="image-list hideOnDesktop">
             <div className="taa">
                 <Typography variant="h6">Suggestions:</Typography> 
-                <Button variant="outlined" onClick={()=>{props.selectDrink()}}>New Search</Button>
+                <Button variant="contained" color="success" onClick={()=>{props.selectDrink()}}>New Search</Button>
             </div>
                 <ImageList cols={1}>
                     {drinks.map((drink)=>(

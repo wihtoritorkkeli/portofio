@@ -1,7 +1,7 @@
 import './App.css';
 import Start from './components/Start';
 import Switcher from './components/Switcher';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
   let [showStart, setShowStart] = useState(true);
