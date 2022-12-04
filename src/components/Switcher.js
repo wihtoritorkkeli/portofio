@@ -10,7 +10,6 @@ function Switcher(){
     let [drinks, setDrinks] = useState([]);
 
     const selectDrink = () => {
-        console.log(selectClass);
         if(selectClass === "textIn"){
             document.getElementById("selection").classList.remove("textIn");
             document.getElementById("selection").classList.add("textOut");
@@ -20,7 +19,6 @@ function Switcher(){
             document.getElementById("selection").classList.add("textOut");
         }
         setTimeout(function(){setDrinkSelected(true); setSelectClass("resetIn");}, 800);
-        console.log(document.getElementById("selection").classList);
     };
 
     const unselectDrink = () => {
@@ -48,7 +46,12 @@ function Switcher(){
         <Container maxWidth="false">
             {drinkSelected ?
             <Drinks drinks={drinks} unselectDrink={unselectDrink}/>:
-            <Selection categories={categories} selectDrink={selectDrink} listDrinks={listDrinks} selectClass={selectClass}/>
+            <Selection 
+            categories={categories} 
+            selectDrink={selectDrink} 
+            listDrinks={listDrinks} 
+            selectClass={selectClass}
+            />
             }
         </Container>
     );

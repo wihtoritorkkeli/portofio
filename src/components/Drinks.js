@@ -1,7 +1,8 @@
 import { Typography, ImageList, ImageListItem, ImageListItemBar, IconButton, Button } from "@mui/material";
 import { Container } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InfoIcon from '@mui/icons-material/Info';
+import CloseIcon from '@mui/icons-material/Close';
 import Popup from "reactjs-popup";
 import './drinks.css';
 
@@ -46,13 +47,17 @@ function Drinks(props){
         });
     };
 
+    useEffect(()=>{setDrinks(props.drinks)},[props.drinks])
+
     return(
         <Container className="textIn drinkContainer" maxWidth="false" id="drinklist">
             {drinkSelected?
             <Popup open={open} closeOnDocumentClick onClose={closeModal}>
                 <Container className="modal" maxWidth="sm">
-                    <button className="close" onClick={closeModal}>&times;</button>
-                    <img src={`${viewing.img}`} alt={viewing.drink} className="pImg"/>
+                    <CloseIcon className="close" onClick={closeModal} color="success" fontSize="large"/>
+                    <div className="imageCenter">
+                        <img src={`${viewing.img}`} alt={viewing.drink} className="pImg"/>
+                    </div>
                     <Typography variant="h5" className="pHeader green">{viewing.drink}</Typography>
                     <Typography variant="h6" className="green">ingredients:</Typography>
                     {viewing.ingredients.map((i)=>(<Typography variant="p">{i}<br/></Typography>))}
