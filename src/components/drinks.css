@@ -20,13 +20,14 @@
     padding: 5px;
 }
 
-.grid-item-2{
+
+.image-list{
     border-radius: 15px;
     border-style: solid;
     border-color: black;
-    background-color: black;
     padding: 10px 10px 10px 10px;
     overflow: scroll;
+    height: 90vh;
 }
 
 .hide{
@@ -38,10 +39,18 @@
 }
 
 .taa{
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
     background-color: black;
     color: white;
     padding: 10px;
     border-radius: 5px;
+    position: sticky; top: 0;
+    z-index: 10;  
+}
+
+.flex-right{
 
 }
 
@@ -49,31 +58,10 @@
     .hideOnMobile{
         display: none;
     }
-    .grid-item{
-        height: 30vh;
-    }
-    .grid-item-2{
-        height: 70vh;
-    }
 }
 
 @media only screen and (min-width: 801px){
     .hideOnDesktop{
         display: none;
-    }
-    .grid-item{
-        height: 100vh;
-    }
-    .grid-item-2{
-        height: 100vh;
-    }
-}
-
-@media only screen and (max-width:900px) and (min-width: 801px){
-    .grid-item{
-        height: 40vh;
-    }
-    .grid-item-2{
-        height: 60vh;
     }
 }
