@@ -3,13 +3,30 @@ import { useState, useEffect } from "react";
 import Selection from "./Selection";
 import Drinks from "./Drinks";
 
-function Switcher(props){
+function Switcher(){
+    let [selectClass, setSelectClass] = useState("textIn");
     let [drinkSelected, setDrinkSelected] = useState(false);
     let [categories, setCategories] = useState([]);
     let [drinks, setDrinks] = useState([]);
 
     const selectDrink = () => {
-        setDrinkSelected(!drinkSelected);
+        console.log(selectClass);
+        if(selectClass === "textIn"){
+            document.getElementById("selection").classList.remove("textIn");
+            document.getElementById("selection").classList.add("textOut");
+        }
+        else{
+            document.getElementById("selection").classList.remove("resetIn");
+            document.getElementById("selection").classList.add("textOut");
+        }
+        setTimeout(function(){setDrinkSelected(true); setSelectClass("resetIn");}, 800);
+        console.log(document.getElementById("selection").classList);
+    };
+
+    const unselectDrink = () => {
+        document.getElementById("drinklist").classList.remove("textIn");
+        document.getElementById("drinklist").classList.add("resetOut");
+        setTimeout(function(){setDrinkSelected(false)}, 1500);
     };
 
     const listDrinks = (list) => {
@@ -30,8 +47,8 @@ function Switcher(props){
     return (
         <Container maxWidth="false">
             {drinkSelected ?
-            <Drinks drinks={drinks} selectDrink={selectDrink}/>:
-            <Selection categories={categories} selectDrink={selectDrink} listDrinks={listDrinks}/>
+            <Drinks drinks={drinks} unselectDrink={unselectDrink}/>:
+            <Selection categories={categories} selectDrink={selectDrink} listDrinks={listDrinks} selectClass={selectClass}/>
             }
         </Container>
     );

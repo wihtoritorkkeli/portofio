@@ -6,7 +6,7 @@ function Selection(props){
     let [selected, setSelected] = useState("");
 
     //This async function handles requesting new drink categories to show on the page:
-    const requestNew = async(end, e) =>{
+    const requestNew = async(end) =>{
         const result = await fetch("https://www.thecocktaildb.com/api/json/v1/1/filter.php?c="+end);
         result.json().then(data => {
             props.listDrinks(data.drinks);
@@ -17,9 +17,10 @@ function Selection(props){
     const handleChange = (category) => {
         setSelected(category);
     };
+    
 
     return(
-        <Container className="textIn selection">
+        <Container className={`${props.selectClass} selection`} id="selection">
                 <Typography variant="h5" className="formText h6">Choose your drink category here:</Typography>
                 <form className="form">
                     <FormControl variant="outlined" className="formi">
@@ -38,7 +39,7 @@ function Selection(props){
                                 key={category.strCategory} 
                                 onClick={(e)=>{
                                     handleChange(category.strCategory); 
-                                    requestNew(category.strCategory, e);
+                                    requestNew(category.strCategory);
                                 }}
                                 className="menu-item"
                                 >{category.strCategory}</MenuItem>

@@ -2,11 +2,16 @@ import { Typography, ImageList, ImageListItem, ImageListItemBar, IconButton, But
 import { Container } from "@mui/system";
 import { useState } from "react";
 import InfoIcon from '@mui/icons-material/Info';
+import Popup from "reactjs-popup";
 import './drinks.css';
+
 
 function Drinks(props){
     let [viewing, setViewing] = useState({})
+    let [drinkSelected, setDrinkSelected] = useState(false);
     let [drinks, setDrinks] = useState(props.drinks);
+    let [open, setOpen] = useState(false);
+    const closeModal = () => {setOpen(false)};
 
 
     //this async function handles requesting drink details from a drink chosen by the user...
@@ -21,34 +26,50 @@ function Drinks(props){
                 if (key.includes("strIngredient") && value !== null){
                     ingredients.push(value);    
                 }
-                else if (key.includes("strMeasure") && value != null){
-                    measures.push(value);
+                else if (key.includes("strMeasure") && value !== null){
+                    if(value !== ""){
+                        measures.push(value);
+                    }
                 }
             }
 
             for (let i = 0; i < measures.length; i++){
                 ingredients[i] = ingredients[i] + " " + measures[i];
             }
-
             setViewing({
                 drink: data.drinks[0].strDrink, 
                 img: data.drinks[0].strDrinkThumb,
                 ingredients: ingredients,
                 instructions: data.drinks[0].strInstructions
             });
+            setDrinkSelected(true);
         });
     };
 
     return(
-        <Container className="textIn drinkContainer" maxWidth="false">
+        <Container className="textIn drinkContainer" maxWidth="false" id="drinklist">
+            {drinkSelected?
+            <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+                <Container className="modal" maxWidth="sm">
+                    <button className="close" onClick={closeModal}>&times;</button>
+                    <img src={`${viewing.img}`} alt={viewing.drink} className="pImg"/>
+                    <Typography variant="h5" className="pHeader green">{viewing.drink}</Typography>
+                    <Typography variant="h6" className="green">ingredients:</Typography>
+                    {viewing.ingredients.map((i)=>(<Typography variant="p">{i}<br/></Typography>))}
+                    <Typography variant="h6" className="green">instructions:</Typography>
+                    <Typography variant="p" className="pInstuctions">{viewing.instructions}</Typography>
+                </Container>
+            </Popup>:
+            null
+            }
             <div className="image-list hideOnMobile">
                 <div className="taa">
                     <Typography variant="h6">Suggestions:</Typography>
-                    <Button variant="contained" color="success" onClick={()=>{props.selectDrink()}}>New Search</Button>
+                    <Button variant="contained" color="warning" onClick={()=>{props.unselectDrink()}}>New Search</Button>
                 </div>
                 <ImageList cols={4}>
                     {drinks.map((drink)=>(
-                        <ImageListItem key={drink.strDrink} onClick={()=>{requestDrink(drink.strDrink)}}>
+                        <ImageListItem key={drink.strDrink} onClick={()=>{requestDrink(drink.strDrink); setTimeout(function(){setOpen(true);}, 150)}}>
                             <img src={`${drink.strDrinkThumb}`} className="drinkImg" alt={drink.strDrink}/>
                             <ImageListItemBar 
                                 title={drink.strDrink}
@@ -65,11 +86,11 @@ function Drinks(props){
             <div className="image-list hideOnDesktop">
             <div className="taa">
                 <Typography variant="h6">Suggestions:</Typography> 
-                <Button variant="contained" color="success" onClick={()=>{props.selectDrink()}}>New Search</Button>
+                <Button variant="contained" color="warning" onClick={()=>{props.unselectDrink()}}>New Search</Button>
             </div>
                 <ImageList cols={1}>
                     {drinks.map((drink)=>(
-                        <ImageListItem key={drink.strDrink} onClick={()=>{requestDrink(drink.strDrink);}}>
+                        <ImageListItem key={drink.strDrink} onClick={()=>{requestDrink(drink.strDrink); setTimeout(function(){setOpen(true);}, 150);}}>
                             <img src={`${drink.strDrinkThumb}`} className="drinkImg" alt={drink.strDrink}/>
                             <ImageListItemBar 
                                 title={drink.strDrink}

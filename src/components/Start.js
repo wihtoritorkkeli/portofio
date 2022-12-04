@@ -6,10 +6,10 @@ function Start(props){
         <Container className="start textIn">
             <Typography variant="h2" className="startText">Online Cocktail bar</Typography>
             <Typography variant="h5" className="startText">Continue to discover new cocktails</Typography><br/>
-            <Button variant="contained" color="primary" onClick={e => {
+            <Button variant="contained" color="warning" onClick={e => {
                 e.currentTarget.parentElement.classList.remove("textIn"); 
                 e.currentTarget.parentElement.classList.add("textOut"); setTimeout(function(){props.hideStart()}, 800)}}>
-                    Keep reading
+                    Discover new cocktails
             </Button>
         </Container>
     );
